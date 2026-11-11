@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title> Dulce Rincón - Pastelería artesanal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!--            ENCABEZADO Y MENÚ             -->
+  <header class="encabezado">
+    <a href="#inicio" class="logo">🧁 Dulce Rincón</a>
+
+    <!-- NIVEL: Barra de menu -->
+    <button id="btn-menu" class="btn-menu" aria-label="Abrir menú" aria-expanded="false">☰</button>
+
+    <nav id="menu" class="menu">
+      <a href="#catalogo">Catálogo</a>
+      <a href="#reconocer">Reconocer 🤖</a>
+      <a href="#galeria">Galería</a>
+      <a href="#testimonios">Opiniones</a>
+      <a href="#faq">Preguntas</a>
+      <a href="#presupuesto">Presupuesto</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <!-- NIVEL 1.2: Modo claro/oscuro -->
+    <button id="btn-tema" class="btn-tema" aria-label="Cambiar tema">🌙</button>
+  </header>
+
+  <main>
+
+    <!--               INICIO               -->
+    <section id="inicio" class="hero">
+      <!-- NIVEL: saludo según la hora -->
+      <h1 id="saludo">¡Hola!</h1>
+      <p>Tortas, salados y bebidas hechos con amor en Santa Fe.</p>
+
+      <!-- NIVEL: cuenta regresiva -->
+      <div class="promo">
+        <p>🎉 <strong>Promo de fin de año</strong> termina en:</p>
+        <div id="cuenta-regresiva" class="cuenta">Cargando...</div>
+      </div>
+    </section>
+
+    <!--                CATÁLOGO              -->
+    <section id="catalogo" class="seccion">
+      <h2>Nuestro catálogo</h2>
+
+      <div class="herramientas">
+        
+        <!-- Filtros por categoría    -->
+        <div id="filtros" class="filtros">
+          <button class="filtro activo" data-categoria="todos">Todos</button>
+          <button class="filtro" data-categoria="tortas">Tortas</button>
+          <button class="filtro" data-categoria="salados">Salados</button>
+          <button class="filtro" data-categoria="bebidas">Bebidas</button>
+        </div>
+
+        <!-- Buscador -->
+        <input type="search" id="buscador" placeholder="🔍 Buscar producto...">
+      </div>
+
+      <!-- acá JS crea las tarjetas -->
+      <div id="lista-productos" class="grilla-productos"></div>
+      <p id="sin-resultados" class="oculto">No encontramos productos con esa búsqueda 😢</p>
+    </section>
+
+
+    <!--      NIVEL 5: RECONOCEDOR CON IA (Teachable Machine)      -->
+    <section id="reconocer" class="seccion">
+      <h2>🤖 Reconocé tu producto</h2>
+      <p>Mostrale un producto a la cámara o subí una foto: nuestra IA te dice qué es, cuánto cuesta y lo podés sumar a tu pedido.</p>
+
+      <div class="ia">
+        <!-- Izquierda: lo que "ve" la IA -->
+        <div class="ia-panel">
+          <div id="ia-visor" class="ia-visor">
+            <span class="ia-visor-emoji">📷</span>
+          </div>
+          <div class="botones">
+            <button id="btn-camara" class="btn" type="button">📷 Usar cámara</button>
+            <button id="btn-foto" class="btn secundario" type="button">🖼️ Subir foto</button>
+            <input type="file" id="ia-archivo" accept="image/*" class="oculto">
+          </div>
+          <!-- En modo demo, acá aparecen botones para simular productos -->
+          <div id="ia-demo" class="ia-demo"></div>
+          <p id="ia-estado" class="ia-estado">Cargando…</p>
+        </div>
+
+        <!-- Derecha: lo que "piensa" la IA -->
+        <div class="ia-panel">
+          <h3 class="ia-subtitulo">¿Qué tan segura está la IA?</h3>
+          <div id="ia-barras" class="ia-barras"></div>
+          <div id="ia-resultado" class="ia-resultado"></div>
+        </div>
+      </div>
+
+      <details class="ia-como">
+        <summary>¿Cómo funciona?</summary>
+        <p>Entrenamos un modelo de inteligencia artificial con Teachable Machine (Google), usando fotos de cada uno de nuestros productos. El modelo es una red neuronal que aprendió a reconocer patrones en esas imágenes. Cuando le mostrás algo nuevo, calcula qué tan parecido es a cada producto y elige el más probable. Si no está seguro (menos de 80%), te lo dice.</p>
+      </details>
+    </section>
+
+    <!--                   CARRITO                        -->
+    <section id="carrito" class="seccion carrito">
+      <h2>🛒 Tu pedido (<span id="carrito-contador">0</span>)</h2>
+      <ul id="carrito-items" class="carrito-items"></ul>
+      <p class="total">Total: <strong id="carrito-total">$0</strong></p>
+      <div class="botones">
+        <button id="btn-vaciar" class="btn secundario">Vaciar carrito</button>
+        <button id="btn-whatsapp" class="btn whatsapp">Pedir por WhatsApp</button>
+      </div>
+    </section>
+
+    <!--                       GALERÍA                      -->
+    <section id="galeria" class="seccion">
+      <h2>Galería</h2>
+      <p>Tocá una foto para agrandarla. (Reemplazá estas imágenes por las fotos reales de tu emprendimiento.)</p>
+      <div class="galeria">
+        <img class="miniatura" alt="Torta de chocolate"
+             src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'><rect width='100%25' height='100%25' fill='%23f6c1cc'/><text x='50%25' y='62%25' font-size='160' text-anchor='middle'>🍰</text></svg>">
+        <img class="miniatura" alt="Cupcakes"
+             src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'><rect width='100%25' height='100%25' fill='%23ffe3a3'/><text x='50%25' y='62%25' font-size='160' text-anchor='middle'>🧁</text></svg>">
+        <img class="miniatura" alt="Medialunas"
+             src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'><rect width='100%25' height='100%25' fill='%23cfe8d5'/><text x='50%25' y='62%25' font-size='160' text-anchor='middle'>🥐</text></svg>">
+        <img class="miniatura" alt="Café"
+             src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'><rect width='100%25' height='100%25' fill='%23d9c7f0'/><text x='50%25' y='62%25' font-size='160' text-anchor='middle'>☕</text></svg>">
+      </div>
+
+      <!-- Ventana que muestra la foto agrandada -->
+      <div id="lightbox" class="lightbox oculto">
+        <span class="lightbox-cerrar">✕</span>
+        <img id="lightbox-img" alt="">
+      </div>
+    </section>
+
+    <!--  CARRUSEL de testimonios -->
+    <section id="testimonios" class="seccion">
+      <h2>Lo que dicen nuestros clientes</h2>
+      <div id="carrusel" class="carrusel">
+        <p id="carrusel-texto" class="carrusel-texto"></p>
+        <p id="carrusel-autor" class="carrusel-autor"></p>
+      </div>
+    </section>
+
+    <!-- PREGUNTAS FRECUENTES  -->
+    <section id="faq" class="seccion">
+      <h2>Preguntas frecuentes</h2>
+      <div class="faq">
+        <div class="faq-item">
+          <button class="faq-pregunta">¿Hacen envíos? <span>+</span></button>
+          <div class="faq-respuesta">Sí, enviamos en toda la ciudad. El costo depende de la zona.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-pregunta">¿Con cuánta anticipación hay que pedir una torta? <span>+</span></button>
+          <div class="faq-respuesta">Recomendamos pedir con 48 horas de anticipación.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-pregunta">¿Qué medios de pago aceptan? <span>+</span></button>
+          <div class="faq-respuesta">Efectivo, transferencia y Mercado Pago.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALCULADORA -->
+    <section id="presupuesto" class="seccion">
+      <h2>Calculá tu presupuesto</h2>
+      <p>Para eventos: 6 o más unidades tienen 10% de descuento, 12 o más tienen 15%.</p>
+      <form id="form-presupuesto" class="formulario">
+        <label for="pres-producto">Producto</label>
+        <select id="pres-producto"></select>
+
+        <label for="pres-cantidad">Cantidad</label>
+        <input type="number" id="pres-cantidad" min="1" value="1">
+
+        <button type="submit" class="btn">Calcular</button>
+      </form>
+      <div id="pres-resultado" class="resultado"></div>
+    </section>
+
+    <!--  CONTACTO -->
+    <section id="contacto" class="seccion">
+      <h2>Contacto</h2>
+      <form id="form-contacto" class="formulario" novalidate>
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" placeholder="Tu nombre">
+        <small class="error" id="error-nombre"></small>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="tuemail@ejemplo.com">
+        <small class="error" id="error-email"></small>
+
+        <label for="mensaje">Mensaje</label>
+        <textarea id="mensaje" rows="4" placeholder="Escribí tu consulta"></textarea>
+        <small class="error" id="error-mensaje"></small>
+
+        <button type="submit" class="btn">Enviar</button>
+        <p id="form-exito" class="exito oculto">✅ ¡Mensaje enviado! Te respondemos pronto.</p>
+      </form>
+    </section>
+
+  </main>
+
+  <!--  botón volver arriba -->
+  <button id="btn-arriba" class="btn-arriba oculto" aria-label="Volver arriba">⬆</button>
+
+  <footer class="footer">
+    <!--año automático -->
+    <p>© <span id="anio"></span> Dulce Rincón · Todos los derechos reservados</p>
+  </footer>
+
+  <!-- Librerías de TensorFlow.js y Teachable Machine (para el reconocedor) -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js"></script>
+  <script src="script.js"></script>
+  <!-- ia.js va DESPUÉS de script.js porque usa sus funciones -->
+  <script src="ia.js"></script>
+</body>
+</html>
